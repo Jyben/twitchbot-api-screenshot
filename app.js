@@ -50,7 +50,7 @@ app.route('/v1/mystery/screenshot').get(cache(60), (req, res) => {
     try {
       console.log('init async function');
       // open the browser and prepare a page
-      const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+      const browser = await puppeteer.launch({ product: 'firefox', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
       const page = await browser.newPage();
 
       console.log('set viewport');
