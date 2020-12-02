@@ -46,6 +46,7 @@ const cache = (duration) => {
 }
 
 app.route('/v1/mystery/screenshot').get(cache(60), (req, res) => {
+  console.log(`get request body : ${req.body}`);
   const run = async () => {
     try {
       console.log('init async function');
