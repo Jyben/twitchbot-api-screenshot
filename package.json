@@ -9,9 +9,9 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "puppeteer": "^3.0.2",
+    "imgur": "^0.3.1",
     "memory-cache": "^0.2.0",
-    "imgur": "^0.3.1"
+    "puppeteer-firefox": "^0.5.1"
   },
   "author": "",
   "license": "ISC"
