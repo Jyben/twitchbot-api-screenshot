@@ -80,7 +80,7 @@ app.route('/v1/mystery/screenshot').post(cache(120), (req, res) => {
       console.log('close browser');
 
       // close the browser 
-      await browser.close();
+      // await browser.close();
 
       console.log('upload screenshot');
 
