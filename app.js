@@ -3,7 +3,7 @@ const express = require('express'),
   http = require('http'),
   port = process.env.PORT || 80,
   bodyParser = require('body-parser'),
-  puppeteer = require("puppeteer-firefox");
+  puppeteer = require("puppeteer");
 
 const allowCrossDomain = function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -45,7 +45,7 @@ const cache = (duration) => {
   }
 }
 
-app.route('/v1/mystery/screenshot').post(cache(120), (req, res) => {
+app.route('/v1/mystery/screenshot').post(cache(1), (req, res) => {
   console.log(`get request body : ${req.body.url}`);
   const run = async () => {
     try {
@@ -77,11 +77,6 @@ app.route('/v1/mystery/screenshot').post(cache(120), (req, res) => {
         path: 'mystery.png'
       });
 
-      console.log('close browser');
-
-      // close the browser 
-      await browser.close();
-
       console.log('upload screenshot');
 
       const imgur = require('imgur');
@@ -93,6 +88,11 @@ app.route('/v1/mystery/screenshot').post(cache(120), (req, res) => {
           res.json({ url: result.data.link });
           console.log(`screenshot url : ${result.data.link}`);
         });
+
+      console.log('close browser');
+
+      // close the browser 
+      await browser.close();
     }
     catch (e) {
       console.log(e);
