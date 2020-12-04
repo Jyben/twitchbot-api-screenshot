@@ -45,13 +45,25 @@ const cache = (duration) => {
   }
 }
 
-app.route('/v1/mystery/screenshot').post(cache(1), (req, res) => {
+app.route('/v1/mystery/screenshot').post(cache(60), (req, res) => {
   console.log(`get request body : ${req.body.url}`);
   const run = async () => {
     try {
       console.log('init async function');
       // open the browser and prepare a page
-      const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--wait-for-browser'] });
+      const browser = await puppeteer.launch({
+        args: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-dev-shm-usage',
+          '--disable-accelerated-2d-canvas',
+          '--no-first-run',
+          '--no-zygote',
+          '--single-process', // <- this one doesn't works in Windows
+          '--disable-gpu'
+        ],
+        headless: true
+      });
       const page = await browser.newPage();
 
       console.log('set viewport');
